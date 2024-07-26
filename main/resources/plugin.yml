@@ -1,0 +1,5 @@
+name: Mounts
+version: '1.0-SNAPSHOT'
+main: co.killionrevival.mc.Mounts
+api-version: '1.21'
+authors: [ Evan J ]
