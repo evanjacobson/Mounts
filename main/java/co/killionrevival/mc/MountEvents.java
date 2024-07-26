@@ -1,7 +1,9 @@
 package co.killionrevival.mc;
 
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -50,7 +52,17 @@ public class MountEvents implements Listener {
                     ? block.getRelative(blockFace).getLocation()
                     : block.getLocation();
 
-            player.getWorld().spawnEntity(loc, EntityType.HORSE);
+            var horse = (Horse) player.getWorld().spawnEntity(loc, EntityType.HORSE);
+            horse.setColor(Horse.Color.CHESTNUT);
+            horse.setStyle(Horse.Style.BLACK_DOTS);
+            //horse.setLeashHolder(player);
+            horse.setTamed(true);
+            horse.addScoreboardTag("Name");
+            horse.setAdult();
+            horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(10);
+            horse.getAttribute(Attribute.GENERIC_JUMP_STRENGTH).setBaseValue(1000);
+            horse.getInventory().setSaddle(new ItemStack(Material.SADDLE));
+
             player.sendMessage("Spawned your horse " + loc.distance(player.getLocation()) + " blocks away");
         }
     }
