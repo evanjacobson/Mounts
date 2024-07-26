@@ -40,23 +40,18 @@ public class MountEvents implements Listener {
         Player player = event.getPlayer();
         Action action = event.getAction();
 
-
         var horseArmor = List.of(Material.LEATHER_HORSE_ARMOR, Material.IRON_HORSE_ARMOR, Material.GOLDEN_HORSE_ARMOR, Material.DIAMOND_HORSE_ARMOR);
 
         if (action.isRightClick() && horseArmor.contains(item.getType())) {
+            var block = player.getTargetBlock(null,5);
+            var blockFace = player.getTargetBlockFace(5);
 
-            //var targetLocation = player.getLocation().add(player.getEyeLocation().getDirection());
-
-            var target = player.getTargetBlock(null, 5);
-
-            var loc = target.getLocation();
-
-            if (target.isSolid()) {
-                loc.add(0, 1, 0);
-            }
+            var loc = blockFace != null
+                    ? block.getRelative(blockFace).getLocation()
+                    : block.getLocation();
 
             player.getWorld().spawnEntity(loc, EntityType.HORSE);
-            player.sendMessage("Spawned your horse " + target.getLocation().distance(player.getLocation()) + " blocks away");
+            player.sendMessage("Spawned your horse " + loc.distance(player.getLocation()) + " blocks away");
         }
     }
 
