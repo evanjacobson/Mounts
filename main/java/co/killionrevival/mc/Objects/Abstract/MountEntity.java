@@ -1,27 +1,27 @@
-package co.killionrevival.mc.Objects;
+package co.killionrevival.mc.Objects.Abstract;
 
-import co.killionrevival.mc.Attributes.EntityAttribute;
+import co.killionrevival.mc.Annotations.EntityAttribute;
 import co.killionrevival.mc.Interfaces.IMountEntity;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.AbstractHorse;
 import org.bukkit.entity.EntityType;
-import org.slf4j.event.Level;
 
-import java.io.Console;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.logging.Logger;
 
-public class MountEntity implements IMountEntity {
+public abstract class MountEntity implements IMountEntity {
 
     public AbstractHorse Horse;
     public EntityType HorseType;
+    public Material MountTrigger;
 
-    public MountEntity(EntityType horseType){
+    public MountEntity(EntityType horseType, Material mountTrigger){
         HorseType = horseType;
+        MountTrigger = mountTrigger;
     }
-    
+
     @Override
     public void setAttributeValue(String fieldName, double value) {
 

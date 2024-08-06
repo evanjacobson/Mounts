@@ -1,4 +1,4 @@
-package co.killionrevival.mc.Attributes;
+package co.killionrevival.mc.Annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

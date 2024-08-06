@@ -1,17 +1,12 @@
 package co.killionrevival.mc.Objects;
 
-import co.killionrevival.mc.Interfaces.IHorse;
-import co.killionrevival.mc.Interfaces.IMountEntity;
-import org.bukkit.entity.AbstractHorse;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Horse;
+import co.killionrevival.mc.Objects.Abstract.HorseEntity;
+import org.bukkit.Material;
 
-import static co.killionrevival.mc.Interfaces.IMountEntity.MovementSpeed;
-
-public class LeatherMountEntity extends MountEntity {
+public class LeatherMountEntity extends HorseEntity {
 
     public LeatherMountEntity() {
-        super(EntityType.HORSE);
+        super(Material.LEATHER_HORSE_ARMOR);
 
         setAttributeValue(this.MovementSpeedAttribute, 10);
     }
