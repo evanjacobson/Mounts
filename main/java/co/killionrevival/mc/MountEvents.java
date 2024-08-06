@@ -1,5 +1,8 @@
 package co.killionrevival.mc;
 
+import co.killionrevival.mc.Objects.GoldenMountEntity;
+import co.killionrevival.mc.Objects.LeatherMountEntity;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.EntityType;
@@ -34,37 +37,29 @@ public class MountEvents implements Listener {
 
     @EventHandler
     public void onPlayerClicks(PlayerInteractEvent event) {
+
+        if(!event.getAction().isRightClick()){
+            return;
+        }
+
         ItemStack item = event.getItem();
         if (item == null) {
             return;
         }
 
-        Player player = event.getPlayer();
-        Action action = event.getAction();
-
-        var horseArmor = List.of(Material.LEATHER_HORSE_ARMOR, Material.IRON_HORSE_ARMOR, Material.GOLDEN_HORSE_ARMOR, Material.DIAMOND_HORSE_ARMOR);
-
-        if (action.isRightClick() && horseArmor.contains(item.getType())) {
-            var block = player.getTargetBlock(null,5);
-            var blockFace = player.getTargetBlockFace(5);
-
-            var loc = blockFace != null
-                    ? block.getRelative(blockFace).getLocation()
-                    : block.getLocation();
-
-            var horse = (Horse) player.getWorld().spawnEntity(loc, EntityType.HORSE);
-            horse.setColor(Horse.Color.CHESTNUT);
-            horse.setStyle(Horse.Style.BLACK_DOTS);
-            //horse.setLeashHolder(player);
-            horse.setTamed(true);
-            horse.addScoreboardTag("Name");
-            horse.setAdult();
-            horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(10);
-            horse.getAttribute(Attribute.GENERIC_JUMP_STRENGTH).setBaseValue(1000);
-            horse.getInventory().setSaddle(new ItemStack(Material.SADDLE));
-
-            player.sendMessage("Spawned your horse " + loc.distance(player.getLocation()) + " blocks away");
+        switch(item.getType()){
+            case Material.LEATHER_HORSE_ARMOR:
+                new LeatherMountEntity().spawnEntity(event);
+                break;
+            case Material.IRON_HORSE_ARMOR:
+                break;
+            case Material.GOLDEN_HORSE_ARMOR:
+                new GoldenMountEntity().spawnEntity(event);
+                break;
+            case Material.DIAMOND_HORSE_ARMOR:
+                break;
+            default:
+                break;
         }
     }
-
 }
