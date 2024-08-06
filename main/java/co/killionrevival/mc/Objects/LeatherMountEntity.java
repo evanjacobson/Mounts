@@ -16,15 +16,15 @@ public class LeatherMountEntity extends HorseEntity {
     @Override
     public AbstractHorse spawnEntity(PlayerInteractEvent event) {
 
-        super.spawnEntity(event);
+        Horse horse = (Horse) super.spawnEntity(event);
 
         setAttributeValue(this.MovementSpeedAttribute, 10);
         setAttributeValue(this.JumpStrengthAttribute, 10);
         setAttributeValue(this.GravityAttribute, 0.1);
         setAttributeValue(this.FallDamageMultiplierAttribute, 0);
 
-        this.HorseEntity.setColor(Horse.Color.CHESTNUT);
-        this.HorseEntity.setStyle(Horse.Style.BLACK_DOTS);
+        horse.setColor(Horse.Color.CHESTNUT);
+        horse.setStyle(Horse.Style.BLACK_DOTS);
 
         return this.HorseEntity;
     }
