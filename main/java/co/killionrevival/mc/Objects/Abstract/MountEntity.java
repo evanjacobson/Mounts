@@ -17,11 +17,9 @@ public abstract class MountEntity implements IMountEntity {
 
     public AbstractHorse AbstractHorseEntity;
     public EntityType HorseType;
-    public Material MountTrigger;
 
-    public MountEntity(EntityType horseType, Material mountTrigger){
+    public MountEntity(EntityType horseType){
         HorseType = horseType;
-        MountTrigger = mountTrigger;
     }
 
     @Override
@@ -52,7 +50,6 @@ public abstract class MountEntity implements IMountEntity {
         return blockFace != null
                 ? block.getRelative(blockFace).getLocation()
                 : block.getLocation();
-
     }
 
     public Attribute getAttribute(String attributeName){
