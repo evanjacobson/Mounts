@@ -3,9 +3,13 @@ package co.killionrevival.mc.Objects.Abstract;
 import co.killionrevival.mc.Annotations.EntityAttribute;
 import co.killionrevival.mc.Interfaces.IMountEntity;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.AbstractHorse;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Horse;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -20,6 +24,30 @@ public abstract class MountEntity implements IMountEntity {
     public MountEntity(EntityType horseType, Material mountTrigger){
         HorseType = horseType;
         MountTrigger = mountTrigger;
+    }
+
+    @Override
+    public AbstractHorse spawnEntity(PlayerInteractEvent event) {
+        var world = event.getPlayer().getWorld();
+        var loc = getHorseSpawnLocation(event);
+
+        this.Horse = (AbstractHorse) world.spawnEntity(getHorseSpawnLocation(event), this.HorseType);
+
+        return this.Horse;
+    }
+
+    private Location getHorseSpawnLocation(PlayerInteractEvent event){
+
+        Player player = event.getPlayer();
+
+        var block = player.getTargetBlock(null,5);
+
+        var blockFace = player.getTargetBlockFace(5);
+
+        return blockFace != null
+                ? block.getRelative(blockFace).getLocation()
+                : block.getLocation();
+
     }
 
     @Override
