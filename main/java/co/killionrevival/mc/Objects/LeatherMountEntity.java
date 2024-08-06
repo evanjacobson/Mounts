@@ -1,7 +1,6 @@
 package co.killionrevival.mc.Objects;
 
 import co.killionrevival.mc.Objects.Abstract.HorseEntity;
-import org.bukkit.Material;
 import org.bukkit.entity.AbstractHorse;
 import org.bukkit.entity.Horse;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -10,7 +9,7 @@ public class LeatherMountEntity extends HorseEntity {
 
 
     public LeatherMountEntity() {
-        super(Material.LEATHER_HORSE_ARMOR);
+        super();
     }
 
     @Override
