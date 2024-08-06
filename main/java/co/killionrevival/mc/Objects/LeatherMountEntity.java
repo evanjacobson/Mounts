@@ -3,9 +3,11 @@ package co.killionrevival.mc.Objects;
 import co.killionrevival.mc.Objects.Abstract.HorseEntity;
 import org.bukkit.Material;
 import org.bukkit.entity.AbstractHorse;
+import org.bukkit.entity.Horse;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class LeatherMountEntity extends HorseEntity {
+
 
     public LeatherMountEntity() {
         super(Material.LEATHER_HORSE_ARMOR);
@@ -21,7 +23,10 @@ public class LeatherMountEntity extends HorseEntity {
         setAttributeValue(this.GravityAttribute, 0.1);
         setAttributeValue(this.FallDamageMultiplierAttribute, 0);
 
-        return this.Horse;
+        this.HorseEntity.setColor(Horse.Color.CHESTNUT);
+        this.HorseEntity.setStyle(Horse.Style.BLACK_DOTS);
+
+        return this.HorseEntity;
     }
 
 }

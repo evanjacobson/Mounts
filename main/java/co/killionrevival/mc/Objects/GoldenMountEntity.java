@@ -22,6 +22,6 @@ public class GoldenMountEntity extends MountEntity {
         setAttributeValue(this.EntityScaleAttribute, 10);
         setAttributeValue(this.WaterMovementEfficiencyAttribute, 10);
 
-        return this.Horse;
+        return this.AbstractHorseEntity;
     }
 }

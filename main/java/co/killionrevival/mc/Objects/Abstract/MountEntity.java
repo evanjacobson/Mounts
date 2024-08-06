@@ -7,9 +7,9 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.AbstractHorse;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public abstract class MountEntity implements IMountEntity {
 
-    public AbstractHorse Horse;
+    public AbstractHorse AbstractHorseEntity;
     public EntityType HorseType;
     public Material MountTrigger;
 
@@ -28,12 +28,18 @@ public abstract class MountEntity implements IMountEntity {
 
     @Override
     public AbstractHorse spawnEntity(PlayerInteractEvent event) {
-        var world = event.getPlayer().getWorld();
+        var player = event.getPlayer();
+        var world = player.getWorld();
         var loc = getHorseSpawnLocation(event);
 
-        this.Horse = (AbstractHorse) world.spawnEntity(getHorseSpawnLocation(event), this.HorseType);
+        this.AbstractHorseEntity = (AbstractHorse) world.spawnEntity(loc, this.HorseType);
 
-        return this.Horse;
+        this.AbstractHorseEntity.setTamed(true);
+        this.AbstractHorseEntity.addScoreboardTag(player.getName());
+        this.AbstractHorseEntity.setAdult();
+        this.AbstractHorseEntity.getInventory().setSaddle(new ItemStack(Material.SADDLE));
+
+        return this.AbstractHorseEntity;
     }
 
     private Location getHorseSpawnLocation(PlayerInteractEvent event){
@@ -71,16 +77,16 @@ public abstract class MountEntity implements IMountEntity {
 
         var attr = field.getAnnotation(EntityAttribute.class).k();
 
-        Objects.requireNonNull(Horse.getAttribute(attr)).setBaseValue(value);
+        Objects.requireNonNull(AbstractHorseEntity.getAttribute(attr)).setBaseValue(value);
     }
 
     public AbstractHorse getHorseEntity(){
         return isSpawned()
-                ? Horse
+                ? AbstractHorseEntity
                 : null;
     }
 
     private boolean isSpawned(){
-        return Horse != null;
+        return AbstractHorseEntity != null;
     }
 }
