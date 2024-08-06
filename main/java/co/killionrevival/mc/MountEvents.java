@@ -1,5 +1,6 @@
 package co.killionrevival.mc;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.EntityType;
@@ -34,6 +35,7 @@ public class MountEvents implements Listener {
 
     @EventHandler
     public void onPlayerClicks(PlayerInteractEvent event) {
+
         ItemStack item = event.getItem();
         if (item == null) {
             return;
@@ -45,26 +47,40 @@ public class MountEvents implements Listener {
         var horseArmor = List.of(Material.LEATHER_HORSE_ARMOR, Material.IRON_HORSE_ARMOR, Material.GOLDEN_HORSE_ARMOR, Material.DIAMOND_HORSE_ARMOR);
 
         if (action.isRightClick() && horseArmor.contains(item.getType())) {
-            var block = player.getTargetBlock(null,5);
-            var blockFace = player.getTargetBlockFace(5);
+            if(player.getTargetEntity(5).getType() == EntityType.HORSE){
+                player.sendMessage("You can't make a horse on a horse!");
+                return;
+            }
 
-            var loc = blockFace != null
-                    ? block.getRelative(blockFace).getLocation()
-                    : block.getLocation();
-
-            var horse = (Horse) player.getWorld().spawnEntity(loc, EntityType.HORSE);
+            var horse = spawnHorse(event);
             horse.setColor(Horse.Color.CHESTNUT);
             horse.setStyle(Horse.Style.BLACK_DOTS);
             //horse.setLeashHolder(player);
             horse.setTamed(true);
-            horse.addScoreboardTag("Name");
+            horse.addScoreboardTag(player.getName());
             horse.setAdult();
             horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(10);
-            horse.getAttribute(Attribute.GENERIC_JUMP_STRENGTH).setBaseValue(1000);
+            horse.getAttribute(Attribute.GENERIC_JUMP_STRENGTH).setBaseValue(100);
             horse.getInventory().setSaddle(new ItemStack(Material.SADDLE));
-
-            player.sendMessage("Spawned your horse " + loc.distance(player.getLocation()) + " blocks away");
         }
     }
 
+    private Horse spawnHorse(PlayerInteractEvent event){
+        return (Horse) event.getPlayer().getWorld().spawnEntity(getHorseSpawnLocation(event), EntityType.HORSE);
+        //player.sendMessage("Spawned your horse " + loc.distance(player.getLocation()) + " blocks away");
+    }
+
+    private Location getHorseSpawnLocation(PlayerInteractEvent event){
+
+        Player player = event.getPlayer();
+
+        var block = player.getTargetBlock(null,5);
+
+        var blockFace = player.getTargetBlockFace(5);
+
+        return blockFace != null
+                ? block.getRelative(blockFace).getLocation()
+                : block.getLocation();
+
+    }
 }
