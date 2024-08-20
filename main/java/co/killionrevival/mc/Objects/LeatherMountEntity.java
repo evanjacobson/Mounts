@@ -3,6 +3,7 @@ package co.killionrevival.mc.Objects;
 import co.killionrevival.mc.Objects.Abstract.HorseEntity;
 import org.bukkit.entity.AbstractHorse;
 import org.bukkit.entity.Horse;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class LeatherMountEntity extends HorseEntity {
@@ -13,9 +14,9 @@ public class LeatherMountEntity extends HorseEntity {
     }
 
     @Override
-    public AbstractHorse spawnEntity(PlayerInteractEvent event) {
+    public AbstractHorse spawnEntity(Player player) {
 
-        Horse horse = (Horse) super.spawnEntity(event);
+        Horse horse = (Horse) super.spawnEntity(player);
 
         setAttributeValue(this.MovementSpeedAttribute, 10);
         setAttributeValue(this.JumpStrengthAttribute, 10);

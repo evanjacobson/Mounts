@@ -3,3 +3,11 @@ version: '1.0-SNAPSHOT'
 main: co.killionrevival.mc.Mounts
 api-version: '1.21'
 authors: [ Evan J ]
+commands:
+  spawnhorse:
+    description: "Spawn a horse with the desired attributes"
+    usage: "/spawnhorse [horse|skeleton|zombie]"
+    permissions: horsemounts.commands.spawn
+permissions:
+  horsemounts.commands.spawn:
+    default: op

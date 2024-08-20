@@ -23,9 +23,8 @@ public abstract class MountEntity implements IMountEntity {
     }
 
     @Override
-    public AbstractHorse spawnEntity(PlayerInteractEvent event) {
-        var player = event.getPlayer();
-        var loc = getHorseSpawnLocation(event);
+    public AbstractHorse spawnEntity(Player player) {
+        var loc = getHorseSpawnLocation(player);
 
         var spawnedEntity = (AbstractHorse) player.getWorld().spawnEntity(loc, this.HorseType);
 
@@ -39,10 +38,7 @@ public abstract class MountEntity implements IMountEntity {
         return this.AbstractHorseEntity;
     }
 
-    private Location getHorseSpawnLocation(PlayerInteractEvent event){
-
-        Player player = event.getPlayer();
-
+    private Location getHorseSpawnLocation(Player player){
         var block = player.getTargetBlock(null,5);
 
         var blockFace = player.getTargetBlockFace(5);

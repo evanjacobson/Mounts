@@ -3,6 +3,7 @@ package co.killionrevival.mc;
 import co.killionrevival.mc.Objects.GoldenMountEntity;
 import co.killionrevival.mc.Objects.LeatherMountEntity;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -37,14 +38,16 @@ public class MountEvents implements Listener {
             return;
         }
 
+        Player player = event.getPlayer();
+
         switch(item.getType()){
             case Material.LEATHER_HORSE_ARMOR:
-                new LeatherMountEntity().spawnEntity(event);
+                new LeatherMountEntity().spawnEntity(player);
                 break;
             case Material.IRON_HORSE_ARMOR:
                 break;
             case Material.GOLDEN_HORSE_ARMOR:
-                new GoldenMountEntity().spawnEntity(event);
+                new GoldenMountEntity().spawnEntity(player);
                 break;
             case Material.DIAMOND_HORSE_ARMOR:
                 break;

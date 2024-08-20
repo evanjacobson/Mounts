@@ -1,6 +1,7 @@
 package co.killionrevival.mc.Interfaces;
 
 import org.bukkit.entity.AbstractHorse;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public interface IMountEntity {
@@ -30,7 +31,7 @@ public interface IMountEntity {
     public final String ArmorDurabilityAttribute = "ArmorDurability";
     public final String ArmorToughnessAttribute = "ArmorToughness";
 
-    AbstractHorse spawnEntity(PlayerInteractEvent event);
+    AbstractHorse spawnEntity(Player player);
 
     void setAttributeValue(String fieldName, double value) throws NoSuchFieldException;
 }
