@@ -4,10 +4,13 @@ import co.killionrevival.mc.Mounts;
 import org.bukkit.NamespacedKey;
 
 import javax.naming.Name;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PersistentKeys {
 
-    public static final NamespacedKey IS_MOUNT_EGG = new NamespacedKey(Mounts.getInstance(), "ISMOUNTEGG");
+    public static final NamespacedKey IS_MOUNT_EGG = new NamespacedKey(Mounts.getInstance(), "IS_MOUNT_EGG");
 
     public static final NamespacedKey ENTITY_SCALE = new NamespacedKey(Mounts.getInstance(), HorseAttributes.ENTITY_SCALE);
 
@@ -31,5 +34,7 @@ public class PersistentKeys {
 
     // Armor
     public static final NamespacedKey ARMOR_DURABILITY = new NamespacedKey(Mounts.getInstance(), HorseAttributes.ARMOR_DURABILITY); 
-    public static final NamespacedKey ARMOR_TOUGHNESS = new NamespacedKey(Mounts.getInstance(), HorseAttributes.ARMOR_TOUGHNESS); 
+    public static final NamespacedKey ARMOR_TOUGHNESS = new NamespacedKey(Mounts.getInstance(), HorseAttributes.ARMOR_TOUGHNESS);
+
+
 }

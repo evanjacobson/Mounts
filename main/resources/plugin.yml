@@ -8,6 +8,10 @@ commands:
     description: "Spawn a horse with the desired attributes"
     usage: "/spawnhorse [horse|skeleton|zombie]"
     permissions: horsemounts.commands.spawn
+  horseattribute:
+    description: "Add/Edit a horse attribute"
+    usage: "/horseattribute <attribute> <decimal value>"
+    permissions: horsemounts.commands.spawn
 permissions:
   horsemounts.commands.spawn:
     default: op

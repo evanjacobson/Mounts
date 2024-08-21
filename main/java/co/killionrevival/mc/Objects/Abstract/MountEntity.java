@@ -1,7 +1,9 @@
 package co.killionrevival.mc.Objects.Abstract;
 
 import co.killionrevival.mc.Interfaces.IMountEntity;
+import co.killionrevival.mc.Utils.EntityUtils;
 import co.killionrevival.mc.Utils.HorseAttributes;
+import co.killionrevival.mc.Utils.PersistentKeys;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -43,7 +45,6 @@ public abstract class MountEntity implements IMountEntity {
                 var keyName = key.getKey();
                 var val = container.get(key, PersistentDataType.DOUBLE);
                 setAttributeValue(keyName, val);
-                player.sendMessage("Key: " + keyName + " | Value: " + val);
             }
         }
         catch(NullPointerException ex){
@@ -65,13 +66,16 @@ public abstract class MountEntity implements IMountEntity {
 
     @Override
     public void setAttributeValue(String fieldName, double value) {
-
         if(!isSpawned()){
             Bukkit.getServer().getConsoleSender().sendMessage("The horse must exist to have attributes!");
             return;
         }
 
-        var attr = HorseAttributes.getAttribute(fieldName);
+        if(fieldName.equalsIgnoreCase(PersistentKeys.IS_MOUNT_EGG.getKey())){
+            return;
+        }
+
+        var attr = EntityUtils.getAttribute(fieldName);
         Objects.requireNonNull(AbstractHorseEntity.getAttribute(attr)).setBaseValue(value);
     }
 

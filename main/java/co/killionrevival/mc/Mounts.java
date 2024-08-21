@@ -1,5 +1,6 @@
 package co.killionrevival.mc;
 
+import co.killionrevival.mc.Commands.HorseAttributeCommand;
 import co.killionrevival.mc.Commands.SpawnHorseCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,6 +13,7 @@ public final class Mounts extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(MountEvents.getInstance(), this);
 
         this.getCommand("spawnhorse").setExecutor(new SpawnHorseCommand());
+        this.getCommand("horseattribute").setExecutor(new HorseAttributeCommand());
     }
 
     @Override

@@ -34,8 +34,10 @@ public class SpawnHorseCommand implements CommandExecutor, TabExecutor {
 
         meta.itemName(Component.text("Horse Mount Egg", NamedTextColor.GOLD));
 
-        container.set(PersistentKeys.ENTITY_SCALE, PersistentDataType.DOUBLE, 10.0);
-        container.set(PersistentKeys.MOVEMENT_EFFICIENCY, PersistentDataType.DOUBLE, 1.0);
+        container.set(PersistentKeys.IS_MOUNT_EGG, PersistentDataType.DOUBLE, 1.0);
+//
+//        container.set(PersistentKeys.ENTITY_SCALE, PersistentDataType.DOUBLE, 10.0);
+//        container.set(PersistentKeys.MOVEMENT_EFFICIENCY, PersistentDataType.DOUBLE, 1.0);
 
         horseEgg.setItemMeta(meta);
 
