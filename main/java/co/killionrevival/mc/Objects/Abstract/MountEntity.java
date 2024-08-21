@@ -2,8 +2,8 @@ package co.killionrevival.mc.Objects.Abstract;
 
 import co.killionrevival.mc.Interfaces.IMountEntity;
 import co.killionrevival.mc.Utils.EntityUtils;
-import co.killionrevival.mc.Utils.HorseAttributes;
 import co.killionrevival.mc.Utils.PersistentKeys;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -31,9 +31,17 @@ public abstract class MountEntity implements IMountEntity {
 
         var spawnedEntity = (AbstractHorse) player.getWorld().spawnEntity(loc, this.HorseType);
 
+
+        spawnedEntity.setBreed(false);
+        spawnedEntity.setGlowing(true);
+        spawnedEntity.setPersistent(true);
+        spawnedEntity.setRemoveWhenFarAway(false);
+
         spawnedEntity.setTamed(true);
-        spawnedEntity.addScoreboardTag(player.getName());
+        spawnedEntity.setOwner(player);
         spawnedEntity.setAdult();
+        spawnedEntity.customName(Component.text(player.getName()));
+        spawnedEntity.setCustomNameVisible(true);
         spawnedEntity.getInventory().setSaddle(new ItemStack(Material.SADDLE));
 
         this.AbstractHorseEntity = spawnedEntity;
@@ -47,9 +55,7 @@ public abstract class MountEntity implements IMountEntity {
                 setAttributeValue(keyName, val);
             }
         }
-        catch(NullPointerException ex){
-
-        }
+        catch(NullPointerException ignored){}
 
         return this.AbstractHorseEntity;
     }

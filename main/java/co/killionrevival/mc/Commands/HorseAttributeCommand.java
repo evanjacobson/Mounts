@@ -1,12 +1,9 @@
 package co.killionrevival.mc.Commands;
 
 import co.killionrevival.mc.Utils.EntityUtils;
-import co.killionrevival.mc.Utils.HorseAttributes;
 import co.killionrevival.mc.Utils.PersistentKeys;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,10 +14,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class HorseAttributeCommand implements CommandExecutor, TabExecutor {
     @Override
@@ -48,7 +43,6 @@ public class HorseAttributeCommand implements CommandExecutor, TabExecutor {
 
         String val = args[1];
         double d;
-        Boolean unset = false;
 
         var persistentKey = EntityUtils.getPersistentKey(attrName);
         if(persistentKey == null){
@@ -62,7 +56,7 @@ public class HorseAttributeCommand implements CommandExecutor, TabExecutor {
             itemMeta.getPersistentDataContainer().set(persistentKey, PersistentDataType.DOUBLE, d);
         }
         catch(NumberFormatException ex){
-            if(!val.equalsIgnoreCase("remove") && !val.equalsIgnoreCase("unset")){
+            if(!val.equalsIgnoreCase("unset")){
                 return false;
             }
 
@@ -76,11 +70,9 @@ public class HorseAttributeCommand implements CommandExecutor, TabExecutor {
 
         List<Component> lore = new ArrayList<>();
         for(var data : keys){
-            Component c = Component.text(persistentKey.getKey() + ": " + container.get(persistentKey, PersistentDataType.DOUBLE), NamedTextColor.DARK_RED);
+            Component c = Component.text(data.getKey() + ": " + container.get(data, PersistentDataType.DOUBLE), NamedTextColor.DARK_RED);
             lore.add(c);
         }
-//        Component c = Component.text(persistentKey.getKey() + ": " + d, NamedTextColor.DARK_RED);
-//        lore.add(c);
 
         itemMeta.lore(lore);
 
@@ -91,6 +83,9 @@ public class HorseAttributeCommand implements CommandExecutor, TabExecutor {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        return EntityUtils.getAttributeNames().stream().filter(attr -> attr.startsWith(args[0].toUpperCase())).toList();
+        if(args.length < 2){
+            return EntityUtils.getAttributeNames().stream().filter(attr -> attr.startsWith(args[0].toUpperCase())).toList();
+        }
+        return List.of("unset", "<enter a decimal value here>");
     }
 }

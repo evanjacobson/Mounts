@@ -4,14 +4,16 @@ main: co.killionrevival.mc.Mounts
 api-version: '1.21'
 authors: [ Evan J ]
 commands:
-  spawnhorse:
-    description: "Spawn a horse with the desired attributes"
-    usage: "/spawnhorse [horse|skeleton|zombie]"
-    permissions: horsemounts.commands.spawn
-  horseattribute:
-    description: "Add/Edit a horse attribute"
-    usage: "/horseattribute <attribute> <decimal value | unset>"
-    permissions: horsemounts.commands.spawn
+  mountegg:
+    description: "Get a mount egg"
+    usage: "/mountegg"
+    permissions: mounts.commands.admin
+  mounteggedit:
+    description: "Add/Edit mount egg attributes"
+    usage: "/mounteggedit <attribute> <decimal value | unset>"
+    permissions: mounts.commands.admin
 permissions:
-  horsemounts.commands.spawn:
+  mounts.commands.admin:
+    default: op
+  mounts.events.spawn:
     default: op

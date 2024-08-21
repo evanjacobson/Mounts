@@ -65,29 +65,6 @@ public class EntityUtils {
 
     public static List<String> getAttributeNames() {
         return attributeMap.keySet().stream().toList();
-//            ENTITY_SCALE,
-//
-//            // Movement and Speed
-//            MOVEMENT_SPEED,
-//            MOVEMENT_EFFICIENCY,
-//            STEP_HEIGHT,
-//            WATER_MOVEMENT_EFFICIENCY,
-//
-//            // Jumping and fall damage
-//            JUMP_STRENGTH,
-//            FALL_DAMAGE_MULTIPLIER,
-//            SAFE_FALL_DISTANCE,
-//            GRAVITY,
-//
-//            // Health and Combat
-//            MAX_HEALTH,
-//            KNOCKBACK_RESISTANCE,
-//            EXPLOSION_KNOCKBACK_RESISTANCE,
-//            BURN_TIME,
-//
-//            // Armor
-//            ARMOR_DURABILITY,
-//            ARMOR_TOUGHNESS);
     }
 
     public static List<Attribute> getAttributes(){
@@ -98,30 +75,5 @@ public class EntityUtils {
         var keyMap = persistentKeyMap.values();
         keyMap.remove(PersistentKeys.IS_MOUNT_EGG);
         return keyMap.stream().toList();
-        //return List.of(
-//                ENTITY_SCALE,
-//
-//                // Movement and Speed
-//                MOVEMENT_SPEED,
-//                MOVEMENT_EFFICIENCY,
-//                STEP_HEIGHT,
-//                WATER_MOVEMENT_EFFICIENCY,
-//
-//                // Jumping and fall damage
-//                JUMP_STRENGTH,
-//                FALL_DAMAGE_MULTIPLIER,
-//                SAFE_FALL_DISTANCE,
-//                GRAVITY,
-//
-//                // Health and Combat
-//                MAX_HEALTH,
-//                KNOCKBACK_RESISTANCE,
-//                EXPLOSION_KNOCKBACK_RESISTANCE,
-//                BURN_TIME,
-//
-//                // Armor
-//                ARMOR_DURABILITY,
-//                ARMOR_TOUGHNESS
-//        );
     }
 }

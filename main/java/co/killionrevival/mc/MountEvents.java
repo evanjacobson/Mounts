@@ -1,9 +1,9 @@
 package co.killionrevival.mc;
 
-import co.killionrevival.mc.Objects.GoldenMountEntity;
-import co.killionrevival.mc.Objects.LeatherMountEntity;
 import co.killionrevival.mc.Objects.MountHorse;
-import org.bukkit.Material;
+import co.killionrevival.mc.Utils.PersistentKeys;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -35,28 +35,20 @@ public class MountEvents implements Listener {
         }
 
         ItemStack item = event.getItem();
-        if (item == null) {
+        if (item == null
+                || !item.getItemMeta().getPersistentDataContainer().has(PersistentKeys.IS_MOUNT_EGG)) {
             return;
         }
 
+        event.setCancelled(true);
+
         Player player = event.getPlayer();
 
-        switch(item.getType()){
-            case Material.LEATHER_HORSE_ARMOR:
-                new LeatherMountEntity().spawnEntity(player, item);
-                break;
-            case Material.IRON_HORSE_ARMOR:
-                break;
-            case Material.GOLDEN_HORSE_ARMOR:
-                new GoldenMountEntity().spawnEntity(player, item);
-                break;
-            case Material.DIAMOND_HORSE_ARMOR:
-                break;
-            case Material.HORSE_SPAWN_EGG:
-                event.setCancelled(true);
-                new MountHorse().spawnEntity(player, item);
-            default:
-                break;
+        if(!player.hasPermission("mounts.events.spawn")){
+            player.sendMessage(Component.text("You do not have permission to use mount eggs", NamedTextColor.DARK_RED));
+            return;
         }
+
+        new MountHorse().spawnEntity(player, item);
     }
 }
