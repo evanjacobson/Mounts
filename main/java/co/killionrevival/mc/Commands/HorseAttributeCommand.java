@@ -6,6 +6,7 @@ import co.killionrevival.mc.Utils.PersistentKeys;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,7 +18,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HorseAttributeCommand implements CommandExecutor, TabExecutor {
     @Override
@@ -45,27 +48,39 @@ public class HorseAttributeCommand implements CommandExecutor, TabExecutor {
 
         String val = args[1];
         double d;
-
-        try{
-            d = Double.parseDouble(val);
-        }
-        catch(NumberFormatException ex){
-            return false;
-        }
+        Boolean unset = false;
 
         var persistentKey = EntityUtils.getPersistentKey(attrName);
-
         if(persistentKey == null){
             return false;
         }
 
         var itemMeta = horseEgg.getItemMeta();
-        itemMeta.getPersistentDataContainer().set(persistentKey, PersistentDataType.DOUBLE, d);
 
-        List<Component> lore = itemMeta.lore() != null ? itemMeta.lore() : new ArrayList<>();
+        try{
+            d = Double.parseDouble(val);
+            itemMeta.getPersistentDataContainer().set(persistentKey, PersistentDataType.DOUBLE, d);
+        }
+        catch(NumberFormatException ex){
+            if(!val.equalsIgnoreCase("remove") && !val.equalsIgnoreCase("unset")){
+                return false;
+            }
 
-        Component c = Component.text(persistentKey.getKey() + ": " + d, NamedTextColor.DARK_RED);
-        lore.add(c);
+            itemMeta.getPersistentDataContainer().remove(persistentKey);
+
+        }
+
+        var container = itemMeta.getPersistentDataContainer();
+        var keys = new HashSet<>(container.getKeys());
+        keys.remove(PersistentKeys.IS_MOUNT_EGG);
+
+        List<Component> lore = new ArrayList<>();
+        for(var data : keys){
+            Component c = Component.text(persistentKey.getKey() + ": " + container.get(persistentKey, PersistentDataType.DOUBLE), NamedTextColor.DARK_RED);
+            lore.add(c);
+        }
+//        Component c = Component.text(persistentKey.getKey() + ": " + d, NamedTextColor.DARK_RED);
+//        lore.add(c);
 
         itemMeta.lore(lore);
 

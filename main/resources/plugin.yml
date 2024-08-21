@@ -10,7 +10,7 @@ commands:
     permissions: horsemounts.commands.spawn
   horseattribute:
     description: "Add/Edit a horse attribute"
-    usage: "/horseattribute <attribute> <decimal value>"
+    usage: "/horseattribute <attribute> <decimal value | unset>"
     permissions: horsemounts.commands.spawn
 permissions:
   horsemounts.commands.spawn:
