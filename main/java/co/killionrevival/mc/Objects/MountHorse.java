@@ -3,7 +3,6 @@ package co.killionrevival.mc.Objects;
 import co.killionrevival.mc.Objects.Abstract.MountEntity;
 import org.bukkit.entity.AbstractHorse;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

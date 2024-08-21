@@ -1,7 +1,6 @@
 package co.killionrevival.mc.Interfaces;
 
 import org.bukkit.entity.AbstractHorse;
-import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
