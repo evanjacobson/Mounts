@@ -19,4 +19,7 @@ public final class Mounts extends JavaPlugin {
         // Plugin shutdown logic
     }
 
+    public static Mounts getInstance(){
+        return getPlugin(Mounts.class);
+    }
 }

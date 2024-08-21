@@ -5,7 +5,7 @@ import org.bukkit.entity.AbstractHorse;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 public abstract class HorseEntity extends MountEntity implements IHorseEntity {
 
@@ -18,8 +18,8 @@ public abstract class HorseEntity extends MountEntity implements IHorseEntity {
     }
 
     @Override
-    public AbstractHorse spawnEntity(Player player) {
-        this.HorseEntity = (Horse) super.spawnEntity(player);
+    public AbstractHorse spawnEntity(Player player, ItemStack spawnItem) {
+        this.HorseEntity = (Horse) super.spawnEntity(player, spawnItem);
 
         return HorseEntity;
     }

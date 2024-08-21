@@ -1,15 +1,16 @@
 package co.killionrevival.mc.Objects.Abstract;
 
 import co.killionrevival.mc.Interfaces.IMountEntity;
+import co.killionrevival.mc.Utils.HorseAttributes;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.AbstractHorse;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Objects;
 
@@ -23,7 +24,7 @@ public abstract class MountEntity implements IMountEntity {
     }
 
     @Override
-    public AbstractHorse spawnEntity(Player player) {
+    public AbstractHorse spawnEntity(Player player, ItemStack spawnItem) {
         var loc = getHorseSpawnLocation(player);
 
         var spawnedEntity = (AbstractHorse) player.getWorld().spawnEntity(loc, this.HorseType);
@@ -34,6 +35,20 @@ public abstract class MountEntity implements IMountEntity {
         spawnedEntity.getInventory().setSaddle(new ItemStack(Material.SADDLE));
 
         this.AbstractHorseEntity = spawnedEntity;
+
+        var container = spawnItem.getItemMeta().getPersistentDataContainer();
+
+        try{
+            for(NamespacedKey key : container.getKeys()){
+                var keyName = key.getKey();
+                var val = container.get(key, PersistentDataType.DOUBLE);
+                setAttributeValue(keyName, val);
+                player.sendMessage("Key: " + keyName + " | Value: " + val);
+            }
+        }
+        catch(NullPointerException ex){
+
+        }
 
         return this.AbstractHorseEntity;
     }
@@ -48,43 +63,6 @@ public abstract class MountEntity implements IMountEntity {
                 : block.getLocation();
     }
 
-    public Attribute getAttribute(String attributeName){
-        switch (attributeName) {
-            case EntityScaleAttribute:
-                return Attribute.GENERIC_SCALE;
-            case MovementSpeedAttribute:
-                return Attribute.GENERIC_MOVEMENT_SPEED;
-            case MovementEfficiencyAttribute:
-                return Attribute.GENERIC_MOVEMENT_EFFICIENCY;
-            case StepHeightAttribute:
-                return Attribute.GENERIC_STEP_HEIGHT;
-            case WaterMovementEfficiencyAttribute:
-                return Attribute.GENERIC_WATER_MOVEMENT_EFFICIENCY;
-            case JumpStrengthAttribute:
-                return Attribute.GENERIC_JUMP_STRENGTH;
-            case FallDamageMultiplierAttribute:
-                return Attribute.GENERIC_FALL_DAMAGE_MULTIPLIER;
-            case SafeFallDistanceAttribute:
-                return Attribute.GENERIC_SAFE_FALL_DISTANCE;
-            case GravityAttribute:
-                return Attribute.GENERIC_GRAVITY;
-            case MaxHealthAttribute:
-                return Attribute.GENERIC_MAX_HEALTH;
-            case KnockbackResistanceAttribute:
-                return Attribute.GENERIC_KNOCKBACK_RESISTANCE;
-            case ExplosionKnockbackResistanceAttribute:
-                return Attribute.GENERIC_EXPLOSION_KNOCKBACK_RESISTANCE;
-            case BurnTimeAttribute:
-                return Attribute.GENERIC_BURNING_TIME;
-            case ArmorDurabilityAttribute:
-                return Attribute.GENERIC_ARMOR;
-            case ArmorToughnessAttribute:
-                return Attribute.GENERIC_ARMOR_TOUGHNESS;
-            default:
-                // Handle unknown attribute name
-                throw new IllegalArgumentException("Unknown attribute name: " + attributeName);
-        }
-    }
     @Override
     public void setAttributeValue(String fieldName, double value) {
 
@@ -93,7 +71,7 @@ public abstract class MountEntity implements IMountEntity {
             return;
         }
 
-        var attr = getAttribute(fieldName);
+        var attr = HorseAttributes.getAttribute(fieldName);
         Objects.requireNonNull(AbstractHorseEntity.getAttribute(attr)).setBaseValue(value);
     }
 
