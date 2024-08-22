@@ -50,5 +50,9 @@ public class MountEvents implements Listener {
         }
 
         new MountHorse().spawnEntity(player, item);
+
+        if(!player.hasPermission("mounts.events.spawn.reuse")){
+            item.setAmount(item.getAmount() - 1);
+        }
     }
 }

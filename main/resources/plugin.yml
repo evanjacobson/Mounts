@@ -17,3 +17,5 @@ permissions:
     default: op
   mounts.events.spawn:
     default: op
+  mounts.events.spawn.reuse:
+    default: op

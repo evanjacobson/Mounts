@@ -32,7 +32,6 @@ public abstract class MountEntity implements IMountEntity {
 
         var spawnedEntity = (AbstractHorse) player.getWorld().spawnEntity(loc, this.HorseType);
 
-
         spawnedEntity.setBreed(false);
         spawnedEntity.setGlowing(true);
         spawnedEntity.setPersistent(true);
