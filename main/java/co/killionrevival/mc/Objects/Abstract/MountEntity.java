@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.AbstractHorse;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -50,6 +51,10 @@ public abstract class MountEntity implements IMountEntity {
 
         try{
             for(NamespacedKey key : container.getKeys()){
+                if(!EntityUtils.getPersistentKeys().contains(key)){
+                    continue;
+                }
+
                 var keyName = key.getKey();
                 var val = container.get(key, PersistentDataType.DOUBLE);
                 setAttributeValue(keyName, val);

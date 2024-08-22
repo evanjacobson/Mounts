@@ -25,12 +25,18 @@ public class HorseAttributeCommand implements CommandExecutor, TabExecutor {
             return false;
         }
 
+        if(!player.hasPermission("mounts.commands.admin")){
+            player.sendMessage(Component.text("You do not have permission to use mount egg commands", NamedTextColor.DARK_RED));
+            return true;
+        }
+
         if(args.length < 2){
             return false;
         }
 
         var horseEgg = player.getInventory().getItemInMainHand();
         if(!horseEgg.getItemMeta().getPersistentDataContainer().has(PersistentKeys.IS_MOUNT_EGG)){
+            player.sendMessage(Component.text("You must be holding a mount egg to do that", NamedTextColor.DARK_RED));
             return false;
         }
 

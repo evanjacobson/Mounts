@@ -19,6 +19,11 @@ public class SpawnHorseCommand implements CommandExecutor {
             return false;
         }
 
+        if(!player.hasPermission("mounts.commands.admin")){
+            player.sendMessage(Component.text("You do not have permission to use mount egg commands", NamedTextColor.DARK_RED));
+            return true;
+        }
+
         var horseEgg = new ItemStack(Material.HORSE_SPAWN_EGG);
         var meta = horseEgg.getItemMeta();
         var container = meta.getPersistentDataContainer();
