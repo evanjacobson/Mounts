@@ -6,14 +6,14 @@ authors: [ Evan J ]
 commands:
   mountegg:
     description: "Get a mount egg"
-    usage: "/mountegg"
-    permissions: mounts.commands.admin
+    usage: "/mountegg [player]"
+    permissions: mounts.admin
   mounteggedit:
     description: "Add/Edit mount egg attributes"
     usage: "/mounteggedit <attribute> <decimal value | unset>"
-    permissions: mounts.commands.admin
+    permissions: mounts.admin
 permissions:
-  mounts.commands.admin:
+  mounts.admin:
     default: op
   mounts.events.spawn:
     default: op

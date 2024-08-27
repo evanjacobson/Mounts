@@ -1,14 +1,20 @@
 package co.killionrevival.mc;
 
 import co.killionrevival.mc.Objects.MountHorse;
+import co.killionrevival.mc.Utils.HorseAttributes;
 import co.killionrevival.mc.Utils.PersistentKeys;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.event.vehicle.VehicleEnterEvent;
+import org.bukkit.persistence.PersistentDataType;
+
+import java.util.Objects;
 
 public class MountEvents implements Listener {
 
@@ -28,6 +34,21 @@ public class MountEvents implements Listener {
     //endregion
 
     @EventHandler
+    public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
+        if (event.getRightClicked() instanceof AbstractHorse horse) {
+
+            Player player = event.getPlayer();
+
+            AnimalTamer owner = horse.getOwner();
+
+            if(owner != null && owner.getUniqueId() != player.getUniqueId() && !player.hasPermission("mounts.admin")) {
+                event.setCancelled(true);
+                player.sendMessage(Component.text("This horse belongs to " + owner.getName(), NamedTextColor.DARK_RED));
+            }
+        }
+    }
+
+    @EventHandler
     public void onPlayerClicks(PlayerInteractEvent event) {
 
         if(!event.getAction().isRightClick()){
@@ -35,8 +56,8 @@ public class MountEvents implements Listener {
         }
 
         ItemStack item = event.getItem();
-        if (item == null
-                || !item.getItemMeta().getPersistentDataContainer().has(PersistentKeys.IS_MOUNT_EGG)) {
+        var container = Objects.requireNonNull(item).getItemMeta().getPersistentDataContainer();
+        if (!container.has(PersistentKeys.IS_MOUNT_ITEM)) {
             return;
         }
 
@@ -46,6 +67,15 @@ public class MountEvents implements Listener {
 
         if(!player.hasPermission("mounts.events.spawn")){
             player.sendMessage(Component.text("You do not have permission to use mount eggs", NamedTextColor.DARK_RED));
+            return;
+        }
+
+        var ownerName = Objects.requireNonNull(container.get(PersistentKeys.OWNER, PersistentDataType.STRING));
+
+        if(!ownerName.equalsIgnoreCase(HorseAttributes.ANONYMOUS)
+                && !ownerName.equalsIgnoreCase(player.getName())
+                && !player.hasPermission("mounts.admin")){
+            player.sendMessage(Component.text("You cannot spawn " + ownerName + "'s horse", NamedTextColor.DARK_RED));
             return;
         }
 

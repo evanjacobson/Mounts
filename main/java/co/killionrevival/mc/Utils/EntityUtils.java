@@ -73,7 +73,8 @@ public class EntityUtils {
 
     public static List<NamespacedKey> getPersistentKeys(){
         var keyMap = persistentKeyMap.values();
-        keyMap.remove(PersistentKeys.IS_MOUNT_EGG);
+        keyMap.remove(PersistentKeys.IS_MOUNT_ITEM);
+        keyMap.remove(PersistentKeys.OWNER);
         return keyMap.stream().toList();
     }
 }
