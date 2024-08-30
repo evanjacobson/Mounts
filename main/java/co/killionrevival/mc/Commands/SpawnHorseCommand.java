@@ -17,8 +17,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class SpawnHorseCommand implements CommandExecutor, TabExecutor {
@@ -29,7 +27,7 @@ public class SpawnHorseCommand implements CommandExecutor, TabExecutor {
         }
 
         if(!player.hasPermission("mounts.admin")){
-            player.sendMessage(Component.text("You do not have permission to use mount egg commands", NamedTextColor.DARK_RED));
+            player.sendMessage(Component.text("You do not have permission to use mount commands", NamedTextColor.DARK_RED));
             return true;
         }
 
@@ -43,11 +41,11 @@ public class SpawnHorseCommand implements CommandExecutor, TabExecutor {
 
         container.set(PersistentKeys.IS_MOUNT_ITEM, PersistentDataType.DOUBLE, 1.0);
 
-        var ownerName = args.length == 0 ? HorseAttributes.ANONYMOUS : args[0];
+        var ownerName = args.length == 0 ? HorseAttributes.UNOWNED : args[0];
         container.set(PersistentKeys.OWNER, PersistentDataType.STRING, ownerName);
 
-        if(ownerName.equalsIgnoreCase(HorseAttributes.ANONYMOUS)){
-            meta.itemName(Component.text("Anonymous Horse Mount", NamedTextColor.GREEN));
+        if(ownerName.equalsIgnoreCase(HorseAttributes.UNOWNED)){
+            meta.itemName(Component.text("Unowned Horse Mount", NamedTextColor.GREEN));
         }
         else{
             meta.itemName(Component.text(ownerName + "'s Horse Mount", NamedTextColor.GOLD));
@@ -74,7 +72,7 @@ public class SpawnHorseCommand implements CommandExecutor, TabExecutor {
         playerNames = Bukkit.getOnlinePlayers()
                 .stream()
                 .map(Player::getName)
-                .filter(n -> n.contains(name))
+                .filter(n -> n.toLowerCase().contains(name))
                 .toList();
 
         return playerNames;

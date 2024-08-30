@@ -5,13 +5,14 @@ import co.killionrevival.mc.Utils.HorseAttributes;
 import co.killionrevival.mc.Utils.PersistentKeys;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.entity.*;
+import org.bukkit.entity.AbstractHorse;
+import org.bukkit.entity.AnimalTamer;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Objects;
@@ -65,14 +66,14 @@ public class MountEvents implements Listener {
 
         Player player = event.getPlayer();
 
-        if(!player.hasPermission("mounts.events.spawn")){
-            player.sendMessage(Component.text("You do not have permission to use mount eggs", NamedTextColor.DARK_RED));
+        if(!player.hasPermission("mounts.spawn")){
+            player.sendMessage(Component.text("You do not have permission to use mounts", NamedTextColor.DARK_RED));
             return;
         }
 
         var ownerName = Objects.requireNonNull(container.get(PersistentKeys.OWNER, PersistentDataType.STRING));
 
-        if(!ownerName.equalsIgnoreCase(HorseAttributes.ANONYMOUS)
+        if(!ownerName.equalsIgnoreCase(HorseAttributes.UNOWNED)
                 && !ownerName.equalsIgnoreCase(player.getName())
                 && !player.hasPermission("mounts.admin")){
             player.sendMessage(Component.text("You cannot spawn " + ownerName + "'s horse", NamedTextColor.DARK_RED));
@@ -81,7 +82,7 @@ public class MountEvents implements Listener {
 
         new MountHorse().spawnEntity(player, item);
 
-        if(!player.hasPermission("mounts.events.spawn.reuse")){
+        if(!player.hasPermission("mounts.spawn.reuse")){
             item.setAmount(item.getAmount() - 1);
         }
     }

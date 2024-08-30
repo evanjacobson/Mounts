@@ -14,7 +14,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class HorseAttributeCommand implements CommandExecutor, TabExecutor {
@@ -26,7 +25,7 @@ public class HorseAttributeCommand implements CommandExecutor, TabExecutor {
         }
 
         if(!player.hasPermission("mounts.admin")){
-            player.sendMessage(Component.text("You do not have permission to use mount egg commands", NamedTextColor.DARK_RED));
+            player.sendMessage(Component.text("You do not have permission to use mount commands", NamedTextColor.DARK_RED));
             return true;
         }
 
@@ -36,7 +35,7 @@ public class HorseAttributeCommand implements CommandExecutor, TabExecutor {
 
         var horseEgg = player.getInventory().getItemInMainHand();
         if(!horseEgg.getItemMeta().getPersistentDataContainer().has(PersistentKeys.IS_MOUNT_ITEM)){
-            player.sendMessage(Component.text("You must be holding a mount egg to do that", NamedTextColor.DARK_RED));
+            player.sendMessage(Component.text("You must be holding a mount to do that", NamedTextColor.DARK_RED));
             return false;
         }
 
