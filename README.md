@@ -1,5 +1,5 @@
 # Mounts
-Horse mounts plugin for the Killion Detention Center Minecraft server. Designed and written by Evan Jacobson. N
+Horse mounts plugin for the Killion Detention Center Minecraft server. Designed and written by Evan Jacobson.
 
 # Using a mount
 Mounts can be set on any item.
