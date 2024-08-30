@@ -74,7 +74,7 @@ public class SpawnHorseCommand implements CommandExecutor, TabExecutor {
         playerNames = Bukkit.getOnlinePlayers()
                 .stream()
                 .map(Player::getName)
-                .filter(n -> n.contains(name))
+                .filter(n -> n.toLowerCase().contains(name))
                 .toList();
 
         return playerNames;
