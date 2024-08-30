@@ -15,12 +15,6 @@ public class MountHorse extends MountEntity {
     @Override
     public AbstractHorse spawnEntity(Player player, ItemStack spawnItem) {
         return super.spawnEntity(player, spawnItem);
-
-//        if(AbstractHorseEntity instanceof Horse horse){
-//            horse.setColor(Color.);
-//            horse.setStyle();
-//
-//        }
     }
 
 }

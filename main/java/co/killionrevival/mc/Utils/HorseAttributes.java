@@ -2,6 +2,8 @@ package co.killionrevival.mc.Utils;
 
 public class HorseAttributes {
     //region Constants
+
+    public static final String ANONYMOUS = "ANONYMOUS";
     
     // Physical Characteristics
     public static final String ENTITY_SCALE = "ENTITY_SCALE";

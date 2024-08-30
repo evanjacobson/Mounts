@@ -12,8 +12,8 @@ public final class Mounts extends JavaPlugin {
         // Plugin startup logic
         Bukkit.getPluginManager().registerEvents(MountEvents.getInstance(), this);
 
-        this.getCommand("mountegg").setExecutor(new SpawnHorseCommand());
-        this.getCommand("mounteggedit").setExecutor(new HorseAttributeCommand());
+        this.getCommand("mount").setExecutor(new SpawnHorseCommand());
+        this.getCommand("mountedit").setExecutor(new HorseAttributeCommand());
     }
 
     @Override

@@ -2,10 +2,14 @@ package co.killionrevival.mc.Utils;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataHolder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class EntityUtils {
 
@@ -71,9 +75,19 @@ public class EntityUtils {
         return attributeMap.values().stream().toList();
     }
 
+    public static List<NamespacedKey> getPersistentKeys(ArrayList<NamespacedKey> keysToFilter){
+
+        keysToFilter.remove(PersistentKeys.IS_MOUNT_ITEM);
+        keysToFilter.remove(PersistentKeys.OWNER);
+
+        return keysToFilter.stream().toList();
+    }
+
     public static List<NamespacedKey> getPersistentKeys(){
-        var keyMap = persistentKeyMap.values();
-        keyMap.remove(PersistentKeys.IS_MOUNT_EGG);
-        return keyMap.stream().toList();
+        return getPersistentKeys(new ArrayList<>(persistentKeyMap.values()));
+    }
+
+    public static List<NamespacedKey> getPersistentKeys(PersistentDataContainer container){
+        return getPersistentKeys(new ArrayList<>(container.getKeys()));
     }
 }

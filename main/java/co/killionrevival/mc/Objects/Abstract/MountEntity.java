@@ -2,6 +2,7 @@ package co.killionrevival.mc.Objects.Abstract;
 
 import co.killionrevival.mc.Interfaces.IMountEntity;
 import co.killionrevival.mc.Utils.EntityUtils;
+import co.killionrevival.mc.Utils.HorseAttributes;
 import co.killionrevival.mc.Utils.PersistentKeys;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -9,7 +10,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.AbstractHorse;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -36,17 +36,22 @@ public abstract class MountEntity implements IMountEntity {
         spawnedEntity.setGlowing(true);
         spawnedEntity.setPersistent(true);
         spawnedEntity.setRemoveWhenFarAway(false);
-
         spawnedEntity.setTamed(true);
-        spawnedEntity.setOwner(player);
         spawnedEntity.setAdult();
-        spawnedEntity.customName(Component.text(player.getName()));
-        spawnedEntity.setCustomNameVisible(true);
+
         spawnedEntity.getInventory().setSaddle(new ItemStack(Material.SADDLE));
 
         this.AbstractHorseEntity = spawnedEntity;
 
         var container = spawnItem.getItemMeta().getPersistentDataContainer();
+
+        var ownerName = Objects.requireNonNull(container.get(PersistentKeys.OWNER, PersistentDataType.STRING));
+
+        if(!ownerName.equalsIgnoreCase(HorseAttributes.ANONYMOUS)){
+            spawnedEntity.setOwner(Bukkit.getOfflinePlayer(ownerName));
+            spawnedEntity.customName(Component.text(ownerName));
+            spawnedEntity.setCustomNameVisible(true);
+        }
 
         try{
             for(NamespacedKey key : container.getKeys()){
@@ -60,6 +65,7 @@ public abstract class MountEntity implements IMountEntity {
             }
         }
         catch(NullPointerException ignored){}
+
 
         return this.AbstractHorseEntity;
     }
@@ -81,7 +87,7 @@ public abstract class MountEntity implements IMountEntity {
             return;
         }
 
-        if(fieldName.equalsIgnoreCase(PersistentKeys.IS_MOUNT_EGG.getKey())){
+        if(fieldName.equalsIgnoreCase(PersistentKeys.IS_MOUNT_ITEM.getKey())){
             return;
         }
 

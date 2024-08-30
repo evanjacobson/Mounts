@@ -4,16 +4,16 @@ main: co.killionrevival.mc.Mounts
 api-version: '1.21'
 authors: [ Evan J ]
 commands:
-  mountegg:
+  mount:
     description: "Get a mount egg"
-    usage: "/mountegg"
-    permissions: mounts.commands.admin
-  mounteggedit:
+    usage: "/mount [owner]"
+    permissions: mounts.admin
+  mountedit:
     description: "Add/Edit mount egg attributes"
-    usage: "/mounteggedit <attribute> <decimal value | unset>"
-    permissions: mounts.commands.admin
+    usage: "/mountedit <attribute> <decimal value | unset>"
+    permissions: mounts.admin
 permissions:
-  mounts.commands.admin:
+  mounts.admin:
     default: op
   mounts.events.spawn:
     default: op
