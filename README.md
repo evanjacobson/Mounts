@@ -1,7 +1,7 @@
 # Mounts
 Horse mounts plugin for the Killion Detention Center Minecraft server. Designed and written by Evan Jacobson.
 
-# Using a mount
+## Using a mount
 Mounts can be set on any item.
 The naming pattern of mount items is either "<user>'s Horse Mount" in gold, or "Unowned Horse Mount" in green.
 More info on mount ownership in the /mount command explanation.
