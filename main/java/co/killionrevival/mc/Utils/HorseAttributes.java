@@ -3,7 +3,7 @@ package co.killionrevival.mc.Utils;
 public class HorseAttributes {
     //region Constants
 
-    public static final String ANONYMOUS = "ANONYMOUS";
+    public static final String UNOWNED = "UNOWNED";
     
     // Physical Characteristics
     public static final String ENTITY_SCALE = "ENTITY_SCALE";

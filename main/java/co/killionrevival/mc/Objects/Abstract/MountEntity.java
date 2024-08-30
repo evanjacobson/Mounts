@@ -47,7 +47,7 @@ public abstract class MountEntity implements IMountEntity {
 
         var ownerName = Objects.requireNonNull(container.get(PersistentKeys.OWNER, PersistentDataType.STRING));
 
-        if(!ownerName.equalsIgnoreCase(HorseAttributes.ANONYMOUS)){
+        if(!ownerName.equalsIgnoreCase(HorseAttributes.UNOWNED)){
             spawnedEntity.setOwner(Bukkit.getOfflinePlayer(ownerName));
             spawnedEntity.customName(Component.text(ownerName));
             spawnedEntity.setCustomNameVisible(true);
