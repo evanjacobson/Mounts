@@ -6,7 +6,7 @@ import org.bukkit.NamespacedKey;
 public class PersistentKeys {
 
     public static final NamespacedKey IS_MOUNT_ITEM = new NamespacedKey(Mounts.getInstance(), "IS_MOUNT_EGG");
-    public static final NamespacedKey OWNER = new NamespacedKey(Mounts.getInstance(), "ANONYMOUS");
+    public static final NamespacedKey OWNER = new NamespacedKey(Mounts.getInstance(), "OWNER");
 
     public static final NamespacedKey ENTITY_SCALE = new NamespacedKey(Mounts.getInstance(), HorseAttributes.ENTITY_SCALE);
 

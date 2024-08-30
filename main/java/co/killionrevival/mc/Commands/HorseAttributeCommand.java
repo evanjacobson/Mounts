@@ -64,15 +64,13 @@ public class HorseAttributeCommand implements CommandExecutor, TabExecutor {
         catch(NumberFormatException ex){
             if(!val.equalsIgnoreCase("unset")){
                 return false;
+
             }
-
             itemMeta.getPersistentDataContainer().remove(persistentKey);
-
         }
 
         var container = itemMeta.getPersistentDataContainer();
-        var keys = new HashSet<>(container.getKeys());
-        keys.remove(PersistentKeys.IS_MOUNT_ITEM);
+        var keys = EntityUtils.getPersistentKeys(container);
 
         List<Component> lore = new ArrayList<>();
         for(var data : keys){

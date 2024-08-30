@@ -71,13 +71,6 @@ public class SpawnHorseCommand implements CommandExecutor, TabExecutor {
 
         var name = args[0].toLowerCase();
 
-//        for(var player : Bukkit.getOnlinePlayers()){
-//            if(player.getName().contains(name)){
-//                playerNames.add(name);
-//            }
-//        }
-//
-
         playerNames = Bukkit.getOnlinePlayers()
                 .stream()
                 .map(Player::getName)
