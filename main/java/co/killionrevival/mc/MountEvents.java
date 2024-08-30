@@ -5,13 +5,14 @@ import co.killionrevival.mc.Utils.HorseAttributes;
 import co.killionrevival.mc.Utils.PersistentKeys;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.entity.*;
+import org.bukkit.entity.AbstractHorse;
+import org.bukkit.entity.AnimalTamer;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Objects;
